@@ -25,7 +25,6 @@ pub fn add_assign_with_carry(a: &mut u32, b: u32, carry: &mut u32) {
 mod tests {
     use super::*;
     use std::u32;
-
     const MAX: u32 = u32::MAX;
 
     #[test]
