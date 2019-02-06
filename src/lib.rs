@@ -24,446 +24,131 @@ pub fn add_assign_with_carry(a: &mut u32, b: u32, carry: &mut u32) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::u32;
+    const MAX: u32 = u32::MAX;
 
     #[test]
     fn test_add_assign_big() {
-        let max_value = u32::max_value();
-
-        let mut a = [0, 0];
-        assert!(add_assign_big(&mut a, &[0, 0]) == 0);
-        assert!(a == [0, 0]);
-
-        let mut a = [0, 0];
-        assert!(add_assign_big(&mut a, &[1, 0]) == 0);
-        assert!(a == [1, 0]);
-
-        let mut a = [0, 0];
-        assert!(add_assign_big(&mut a, &[max_value, 0]) == 0);
-        assert!(a == [max_value, 0]);
-
-        let mut a = [0, 0];
-        assert!(add_assign_big(&mut a, &[0, 1]) == 0);
-        assert!(a == [0, 1]);
-
-        let mut a = [0, 0];
-        assert!(add_assign_big(&mut a, &[1, 1]) == 0);
-        assert!(a == [1, 1]);
-
-        let mut a = [0, 0];
-        assert!(add_assign_big(&mut a, &[max_value, 1]) == 0);
-        assert!(a == [max_value, 1]);
-
-        let mut a = [0, 0];
-        assert!(add_assign_big(&mut a, &[0, max_value]) == 0);
-        assert!(a == [0, max_value]);
-
-        let mut a = [0, 0];
-        assert!(add_assign_big(&mut a, &[1, max_value]) == 0);
-        assert!(a == [1, max_value]);
-
-        let mut a = [0, 0];
-        assert!(add_assign_big(&mut a, &[max_value, max_value]) == 0);
-        assert!(a == [max_value, max_value]);
-
-        let mut a = [1, 0];
-        assert!(add_assign_big(&mut a, &[0, 0]) == 0);
-        assert!(a == [1, 0]);
-
-        let mut a = [1, 0];
-        assert!(add_assign_big(&mut a, &[1, 0]) == 0);
-        assert!(a == [2, 0]);
-
-        let mut a = [1, 0];
-        assert!(add_assign_big(&mut a, &[max_value, 0]) == 0);
-        assert!(a == [0, 1]);
-
-        let mut a = [1, 0];
-        assert!(add_assign_big(&mut a, &[0, 1]) == 0);
-        assert!(a == [1, 1]);
-
-        let mut a = [1, 0];
-        assert!(add_assign_big(&mut a, &[1, 1]) == 0);
-        assert!(a == [2, 1]);
-
-        let mut a = [1, 0];
-        assert!(add_assign_big(&mut a, &[max_value, 1]) == 0);
-        assert!(a == [0, 2]);
-
-        let mut a = [1, 0];
-        assert!(add_assign_big(&mut a, &[0, max_value]) == 0);
-        assert!(a == [1, max_value]);
-
-        let mut a = [1, 0];
-        assert!(add_assign_big(&mut a, &[1, max_value]) == 0);
-        assert!(a == [2, max_value]);
-
-        let mut a = [1, 0];
-        assert!(add_assign_big(&mut a, &[max_value, max_value]) == 1);
-        assert!(a == [0, 0]);
-
-        let mut a = [max_value, 0];
-        assert!(add_assign_big(&mut a, &[0, 0]) == 0);
-        assert!(a == [max_value, 0]);
-
-        let mut a = [max_value, 0];
-        assert!(add_assign_big(&mut a, &[1, 0]) == 0);
-        assert!(a == [0, 1]);
-
-        let mut a = [max_value, 0];
-        assert!(add_assign_big(&mut a, &[max_value, 0]) == 0);
-        assert!(a == [max_value - 1, 1]);
-
-        let mut a = [max_value, 0];
-        assert!(add_assign_big(&mut a, &[0, 1]) == 0);
-        assert!(a == [max_value, 1]);
-
-        let mut a = [max_value, 0];
-        assert!(add_assign_big(&mut a, &[1, 1]) == 0);
-        assert!(a == [0, 2]);
-
-        let mut a = [max_value, 0];
-        assert!(add_assign_big(&mut a, &[max_value, 1]) == 0);
-        assert!(a == [max_value - 1, 2]);
-
-        let mut a = [max_value, 0];
-        assert!(add_assign_big(&mut a, &[0, max_value]) == 0);
-        assert!(a == [max_value, max_value]);
-
-        let mut a = [max_value, 0];
-        assert!(add_assign_big(&mut a, &[1, max_value]) == 1);
-        assert!(a == [0, 0]);
-
-        let mut a = [max_value, 0];
-        assert!(add_assign_big(&mut a, &[max_value, max_value]) == 1);
-        assert!(a == [max_value - 1, 0]);
-
-        let mut a = [0, 1];
-        assert!(add_assign_big(&mut a, &[0, 0]) == 0);
-        assert!(a == [0, 1]);
-
-        let mut a = [0, 1];
-        assert!(add_assign_big(&mut a, &[1, 0]) == 0);
-        assert!(a == [1, 1]);
-
-        let mut a = [0, 1];
-        assert!(add_assign_big(&mut a, &[max_value, 0]) == 0);
-        assert!(a == [max_value, 1]);
-
-        let mut a = [0, 1];
-        assert!(add_assign_big(&mut a, &[0, 1]) == 0);
-        assert!(a == [0, 2]);
-
-        let mut a = [0, 1];
-        assert!(add_assign_big(&mut a, &[1, 1]) == 0);
-        assert!(a == [1, 2]);
-
-        let mut a = [0, 1];
-        assert!(add_assign_big(&mut a, &[max_value, 1]) == 0);
-        assert!(a == [max_value, 2]);
-
-        let mut a = [0, 1];
-        assert!(add_assign_big(&mut a, &[0, max_value]) == 1);
-        assert!(a == [0, 0]);
-
-        let mut a = [0, 1];
-        assert!(add_assign_big(&mut a, &[1, max_value]) == 1);
-        assert!(a == [1, 0]);
-
-        let mut a = [0, 1];
-        assert!(add_assign_big(&mut a, &[max_value, max_value]) == 1);
-        assert!(a == [max_value, 0]);
-
-        let mut a = [1, 1];
-        assert!(add_assign_big(&mut a, &[0, 0]) == 0);
-        assert!(a == [1, 1]);
-
-        let mut a = [1, 1];
-        assert!(add_assign_big(&mut a, &[1, 0]) == 0);
-        assert!(a == [2, 1]);
-
-        let mut a = [1, 1];
-        assert!(add_assign_big(&mut a, &[max_value, 0]) == 0);
-        assert!(a == [0, 2]);
-
-        let mut a = [1, 1];
-        assert!(add_assign_big(&mut a, &[0, 1]) == 0);
-        assert!(a == [1, 2]);
-
-        let mut a = [1, 1];
-        assert!(add_assign_big(&mut a, &[1, 1]) == 0);
-        assert!(a == [2, 2]);
-
-        let mut a = [1, 1];
-        assert!(add_assign_big(&mut a, &[max_value, 1]) == 0);
-        assert!(a == [0, 3]);
-
-        let mut a = [1, 1];
-        assert!(add_assign_big(&mut a, &[0, max_value]) == 1);
-        assert!(a == [1, 0]);
-
-        let mut a = [1, 1];
-        assert!(add_assign_big(&mut a, &[1, max_value]) == 1);
-        assert!(a == [2, 0]);
-
-        let mut a = [1, 1];
-        assert!(add_assign_big(&mut a, &[max_value, max_value]) == 1);
-        assert!(a == [0, 1]);
-
-        let mut a = [max_value, 1];
-        assert!(add_assign_big(&mut a, &[0, 0]) == 0);
-        assert!(a == [max_value, 1]);
-
-        let mut a = [max_value, 1];
-        assert!(add_assign_big(&mut a, &[1, 0]) == 0);
-        assert!(a == [0, 2]);
-
-        let mut a = [max_value, 1];
-        assert!(add_assign_big(&mut a, &[max_value, 0]) == 0);
-        assert!(a == [max_value - 1, 2]);
-
-        let mut a = [max_value, 1];
-        assert!(add_assign_big(&mut a, &[0, 1]) == 0);
-        assert!(a == [max_value, 2]);
-
-        let mut a = [max_value, 1];
-        assert!(add_assign_big(&mut a, &[1, 1]) == 0);
-        assert!(a == [0, 3]);
-
-        let mut a = [max_value, 1];
-        assert!(add_assign_big(&mut a, &[max_value, 1]) == 0);
-        assert!(a == [max_value - 1, 3]);
-
-        let mut a = [max_value, 1];
-        assert!(add_assign_big(&mut a, &[0, max_value]) == 1);
-        assert!(a == [max_value, 0]);
-
-        let mut a = [max_value, 1];
-        assert!(add_assign_big(&mut a, &[1, max_value]) == 1);
-        assert!(a == [0, 1]);
-
-        let mut a = [max_value, 1];
-        assert!(add_assign_big(&mut a, &[max_value, max_value]) == 1);
-        assert!(a == [max_value - 1, 1]);
-
-        let mut a = [0, max_value];
-        assert!(add_assign_big(&mut a, &[0, 0]) == 0);
-        assert!(a == [0, max_value]);
-
-        let mut a = [0, max_value];
-        assert!(add_assign_big(&mut a, &[1, 0]) == 0);
-        assert!(a == [1, max_value]);
-
-        let mut a = [0, max_value];
-        assert!(add_assign_big(&mut a, &[max_value, 0]) == 0);
-        assert!(a == [max_value, max_value]);
-
-        let mut a = [0, max_value];
-        assert!(add_assign_big(&mut a, &[0, 1]) == 1);
-        assert!(a == [0, 0]);
-
-        let mut a = [0, max_value];
-        assert!(add_assign_big(&mut a, &[1, 1]) == 1);
-        assert!(a == [1, 0]);
-
-        let mut a = [0, max_value];
-        assert!(add_assign_big(&mut a, &[max_value, 1]) == 1);
-        assert!(a == [max_value, 0]);
-
-        let mut a = [0, max_value];
-        assert!(add_assign_big(&mut a, &[0, max_value]) == 1);
-        assert!(a == [0, max_value - 1]);
-
-        let mut a = [0, max_value];
-        assert!(add_assign_big(&mut a, &[1, max_value]) == 1);
-        assert!(a == [1, max_value -1]);
-
-        let mut a = [0, max_value];
-        assert!(add_assign_big(&mut a, &[max_value, max_value]) == 1);
-        assert!(a == [max_value, max_value - 1]);
-
-        let mut a = [1, max_value];
-        assert!(add_assign_big(&mut a, &[0, 0]) == 0);
-        assert!(a == [1, max_value]);
-
-        let mut a = [1, max_value];
-        assert!(add_assign_big(&mut a, &[1, 0]) == 0);
-        assert!(a == [2, max_value]);
-
-        let mut a = [1, max_value];
-        assert!(add_assign_big(&mut a, &[max_value, 0]) == 1);
-        assert!(a == [0, 0]);
-
-        let mut a = [1, max_value];
-        assert!(add_assign_big(&mut a, &[0, 1]) == 1);
-        assert!(a == [1, 0]);
-
-        let mut a = [1, max_value];
-        assert!(add_assign_big(&mut a, &[1, 1]) == 1);
-        assert!(a == [2, 0]);
-
-        let mut a = [1, max_value];
-        assert!(add_assign_big(&mut a, &[max_value, 1]) == 1);
-        assert!(a == [0, 1]);
-
-        let mut a = [1, max_value];
-        assert!(add_assign_big(&mut a, &[0, max_value]) == 1);
-        assert!(a == [1, max_value - 1]);
-
-        let mut a = [1, max_value];
-        assert!(add_assign_big(&mut a, &[1, max_value]) == 1);
-        assert!(a == [2, max_value -1]);
-
-        let mut a = [1, max_value];
-        assert!(add_assign_big(&mut a, &[max_value, max_value]) == 1);
-        assert!(a == [0, max_value]);
-
-        let mut a = [max_value, max_value];
-        assert!(add_assign_big(&mut a, &[0, 0]) == 0);
-        assert!(a == [max_value, max_value]);
-
-        let mut a = [max_value, max_value];
-        assert!(add_assign_big(&mut a, &[1, 0]) == 1);
-        assert!(a == [0, 0]);
-
-        let mut a = [max_value, max_value];
-        assert!(add_assign_big(&mut a, &[max_value, 0]) == 1);
-        assert!(a == [max_value - 1, 0]);
-
-        let mut a = [max_value, max_value];
-        assert!(add_assign_big(&mut a, &[0, 1]) == 1);
-        assert!(a == [max_value, 0]);
-
-        let mut a = [max_value, max_value];
-        assert!(add_assign_big(&mut a, &[1, 1]) == 1);
-        assert!(a == [0, 1]);
-
-        let mut a = [max_value, max_value];
-        assert!(add_assign_big(&mut a, &[max_value, 1]) == 1);
-        assert!(a == [max_value - 1, 1]);
-
-        let mut a = [max_value, max_value];
-        assert!(add_assign_big(&mut a, &[0, max_value]) == 1);
-        assert!(a == [max_value, max_value - 1]);
-
-        let mut a = [max_value, max_value];
-        assert!(add_assign_big(&mut a, &[1, max_value]) == 1);
-        assert!(a == [0, max_value]);
-
-        let mut a = [max_value, max_value];
-        assert!(add_assign_big(&mut a, &[max_value, max_value]) == 1);
-        assert!(a == [max_value - 1, max_value]);
+        static TESTS: &[(&[u32], &[u32], &[u32], u32)] = &[
+            (&[0, 0], &[0, 0], &[0, 0], 0),
+            (&[0, 0], &[1, 0], &[1, 0], 0),
+            (&[0, 0], &[MAX, 0], &[MAX, 0], 0),
+            (&[0, 0], &[0, 1], &[0, 1], 0),
+            (&[0, 0], &[1, 1], &[1, 1], 0),
+            (&[0, 0], &[MAX, 1], &[MAX, 1], 0),
+            (&[0, 0], &[0, MAX], &[0, MAX], 0),
+            (&[0, 0], &[1, MAX], &[1, MAX], 0),
+            (&[0, 0], &[MAX, MAX], &[MAX, MAX], 0),
+            (&[1, 0], &[0, 0], &[1, 0], 0),
+            (&[1, 0], &[1, 0], &[2, 0], 0),
+            (&[1, 0], &[MAX, 0], &[0, 1], 0),
+            (&[1, 0], &[0, 1], &[1, 1], 0),
+            (&[1, 0], &[1, 1], &[2, 1], 0),
+            (&[1, 0], &[MAX, 1], &[0, 2], 0),
+            (&[1, 0], &[0, MAX], &[1, MAX], 0),
+            (&[1, 0], &[1, MAX], &[2, MAX], 0),
+            (&[1, 0], &[MAX, MAX], &[0, 0], 1),
+            (&[MAX, 0], &[0, 0], &[MAX, 0], 0),
+            (&[MAX, 0], &[1, 0], &[0, 1], 0),
+            (&[MAX, 0], &[MAX, 0], &[MAX - 1, 1], 0),
+            (&[MAX, 0], &[0, 1], &[MAX, 1], 0),
+            (&[MAX, 0], &[1, 1], &[0, 2], 0),
+            (&[MAX, 0], &[MAX, 1], &[MAX - 1, 2], 0),
+            (&[MAX, 0], &[0, MAX], &[MAX, MAX], 0),
+            (&[MAX, 0], &[1, MAX], &[0, 0], 1),
+            (&[MAX, 0], &[MAX, MAX], &[MAX - 1, 0], 1),
+            (&[0, 1], &[0, 0], &[0, 1], 0),
+            (&[0, 1], &[1, 0], &[1, 1], 0),
+            (&[0, 1], &[MAX, 0], &[MAX, 1], 0),
+            (&[0, 1], &[0, 1], &[0, 2], 0),
+            (&[0, 1], &[1, 1], &[1, 2], 0),
+            (&[0, 1], &[MAX, 1], &[MAX, 2], 0),
+            (&[0, 1], &[0, MAX], &[0, 0], 1),
+            (&[0, 1], &[1, MAX], &[1, 0], 1),
+            (&[0, 1], &[MAX, MAX], &[MAX, 0], 1),
+            (&[1, 1], &[0, 0], &[1, 1], 0),
+            (&[1, 1], &[1, 0], &[2, 1], 0),
+            (&[1, 1], &[MAX, 0], &[0, 2], 0),
+            (&[1, 1], &[0, 1], &[1, 2], 0),
+            (&[1, 1], &[1, 1], &[2, 2], 0),
+            (&[1, 1], &[MAX, 1], &[0, 3], 0),
+            (&[1, 1], &[0, MAX], &[1, 0], 1),
+            (&[1, 1], &[1, MAX], &[2, 0], 1),
+            (&[1, 1], &[MAX, MAX], &[0, 1], 1),
+            (&[MAX, 1], &[0, 0], &[MAX, 1], 0),
+            (&[MAX, 1], &[1, 0], &[0, 2], 0),
+            (&[MAX, 1], &[MAX, 0], &[MAX - 1, 2], 0),
+            (&[MAX, 1], &[0, 1], &[MAX, 2], 0),
+            (&[MAX, 1], &[1, 1], &[0, 3], 0),
+            (&[MAX, 1], &[MAX, 1], &[MAX - 1, 3], 0),
+            (&[MAX, 1], &[0, MAX], &[MAX, 0], 1),
+            (&[MAX, 1], &[1, MAX], &[0, 1], 1),
+            (&[MAX, 1], &[MAX, MAX], &[MAX - 1, 1], 1),
+            (&[0, MAX], &[0, 0], &[0, MAX], 0),
+            (&[0, MAX], &[1, 0], &[1, MAX], 0),
+            (&[0, MAX], &[MAX, 0], &[MAX, MAX], 0),
+            (&[0, MAX], &[0, 1], &[0, 0], 1),
+            (&[0, MAX], &[1, 1], &[1, 0], 1),
+            (&[0, MAX], &[MAX, 1], &[MAX, 0], 1),
+            (&[0, MAX], &[0, MAX], &[0, MAX - 1], 1),
+            (&[0, MAX], &[1, MAX], &[1, MAX - 1], 1),
+            (&[0, MAX], &[MAX, MAX], &[MAX, MAX - 1], 1),  
+            (&[1, MAX], &[0, 0], &[1, MAX], 0),
+            (&[1, MAX], &[1, 0], &[2, MAX], 0),
+            (&[1, MAX], &[MAX, 0], &[0, 0], 1),
+            (&[1, MAX], &[0, 1], &[1, 0], 1),
+            (&[1, MAX], &[1, 1], &[2, 0], 1),
+            (&[1, MAX], &[MAX, 1], &[0, 1], 1),
+            (&[1, MAX], &[0, MAX], &[1, MAX - 1], 1),
+            (&[1, MAX], &[1, MAX], &[2, MAX - 1], 1),
+            (&[1, MAX], &[MAX, MAX], &[0, MAX], 1),
+            (&[MAX, MAX], &[0, 0], &[MAX, MAX], 0),
+            (&[MAX, MAX], &[1, 0], &[0, 0], 1),
+            (&[MAX, MAX], &[MAX, 0], &[MAX - 1, 0], 1),
+            (&[MAX, MAX], &[0, 1], &[MAX, 0], 1),
+            (&[MAX, MAX], &[1, 1], &[0, 1], 1),
+            (&[MAX, MAX], &[MAX, 1], &[MAX - 1, 1], 1),
+            (&[MAX, MAX], &[0, MAX], &[MAX, MAX - 1], 1),
+            (&[MAX, MAX], &[1, MAX], &[0, MAX], 1),
+            (&[MAX, MAX], &[MAX, MAX], &[MAX - 1, MAX], 1),
+        ];
+
+        for (a_in, b, a_out, carry_out) in TESTS {
+            let mut a = a_in.to_vec();
+            assert!(add_assign_big(a.as_mut_slice(), b) == *carry_out);
+            assert!(&a == a_out);
+        }
     }
 
     #[test]
     fn test_add_assign_with_carry() {
-        let max_value = u32::max_value();
+        const TESTS: &[(u32, u32, u32, u32, u32)] = &[
+            (0, 0, 0, 0, 0),
+            (0, 0, 1, 1, 0),
+            (0, 1, 0, 1, 0),
+            (0, 1, 1, 2, 0),
+            (0, MAX, 0, MAX, 0),
+            (0, MAX, 1, 0, 1),
+            (1, 0, 0, 1, 0),
+            (1, 0, 1, 2, 0),
+            (1, 1, 0, 2, 0),
+            (1, 1, 1, 3, 0),
+            (1, MAX, 0, 0, 1),
+            (1, MAX, 1, 1, 1),
+            (MAX, 0, 0, MAX, 0),
+            (MAX, 0, 1, 0, 1),
+            (MAX, 1, 0, 0, 1),
+            (MAX, 1, 1, 1, 1),
+            (MAX, MAX, 0, MAX - 1, 1),
+            (MAX, MAX, 1, MAX, 1),
+        ];
 
-        let mut a = 0;
-        let mut carry = 0;
-        add_assign_with_carry(&mut a, 0, &mut carry);
-        assert!(a == 0);
-        assert!(carry == 0);
-
-        let mut a = 0;
-        let mut carry = 1;
-        add_assign_with_carry(&mut a, 0, &mut carry);
-        assert!(a == 1);
-        assert!(carry == 0);
-
-        let mut a = 0;
-        let mut carry = 0;
-        add_assign_with_carry(&mut a, 1, &mut carry);
-        assert!(a == 1);
-        assert!(carry == 0);
-
-        let mut a = 0;
-        let mut carry = 1;
-        add_assign_with_carry(&mut a, 1, &mut carry);
-        assert!(a == 2);
-        assert!(carry == 0);
-
-        let mut a = 0;
-        let mut carry = 0;
-        add_assign_with_carry(&mut a, max_value, &mut carry);
-        assert!(a == max_value);
-        assert!(carry == 0);
-
-        let mut a = 0;
-        let mut carry = 1;
-        add_assign_with_carry(&mut a, max_value, &mut carry);
-        assert!(a == 0);
-        assert!(carry == 1);
-
-        let mut a = 1;
-        let mut carry = 0;
-        add_assign_with_carry(&mut a, 0, &mut carry);
-        assert!(a == 1);
-        assert!(carry == 0);
-
-        let mut a = 1;
-        let mut carry = 1;
-        add_assign_with_carry(&mut a, 0, &mut carry);
-        assert!(a == 2);
-        assert!(carry == 0);
-
-        let mut a = 1;
-        let mut carry = 0;
-        add_assign_with_carry(&mut a, 1, &mut carry);
-        assert!(a == 2);
-        assert!(carry == 0);
-
-        let mut a = 1;
-        let mut carry = 1;
-        add_assign_with_carry(&mut a, 1, &mut carry);
-        assert!(a == 3);
-        assert!(carry == 0);
-
-        let mut a = 1;
-        let mut carry = 0;
-        add_assign_with_carry(&mut a, max_value, &mut carry);
-        assert!(a == 0);
-        assert!(carry == 1);
-
-        let mut a = 1;
-        let mut carry = 1;
-        add_assign_with_carry(&mut a, max_value, &mut carry);
-        assert!(a == 1);
-        assert!(carry == 1);
-
-        let mut a = max_value;
-        let mut carry = 0;
-        add_assign_with_carry(&mut a, 0, &mut carry);
-        assert!(a == max_value);
-        assert!(carry == 0);
-
-        let mut a = max_value;
-        let mut carry = 1;
-        add_assign_with_carry(&mut a, 0, &mut carry);
-        assert!(a == 0);
-        assert!(carry == 1);
-
-        let mut a = max_value;
-        let mut carry = 0;
-        add_assign_with_carry(&mut a, 1, &mut carry);
-        assert!(a == 0);
-        assert!(carry == 1);
-        
-        let mut a = max_value;
-        let mut carry = 1;
-        add_assign_with_carry(&mut a, 1, &mut carry);
-        assert!(a == 1);
-        assert!(carry == 1);
-
-        let mut a = max_value;
-        let mut carry = 0;
-        add_assign_with_carry(&mut a, max_value, &mut carry);
-        assert!(a == max_value - 1);
-        assert!(carry == 1);
-
-        let mut a = max_value;
-        let mut carry = 1;
-        add_assign_with_carry(&mut a, max_value, &mut carry);
-        assert!(a == max_value);
-        assert!(carry == 1);
+        for (a_in, b, carry_in, a_out, carry_out) in TESTS {
+            let mut a = *a_in;
+            let mut carry = *carry_in;
+            add_assign_with_carry(&mut a, *b, &mut carry);
+            assert!(a == *a_out);
+            assert!(carry == *carry_out);
+        }
     }
 }
